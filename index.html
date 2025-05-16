@@ -3,28 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Snake's game</title>
+    <title>Snake's Game</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <div style="display: flex; align-items: flex-start; justify-content: center;">
-            <canvas id="dessin" width="400" height="400" style="border: 1px solid black;"></canvas>
-            <div style="display: flex; flex-direction: column; margin-left: 20px;">
+        <canvas id="dessin" width="400" height="400" style="border: 1px solid black;"></canvas>
+        <div class="controls">
+            <div id="game-controls">
                 <button id="start">Start</button>
                 <button id="stop">Stop</button>
                 <button id="continue">Continuer</button>
                 <button id="reset">Reset</button>
             </div>
-        </div>
-        <br>
-        <button id="up">&#8593;</button><br>
-        <button id="left">&#8592;</button>
-        <button id="right">&#8594;</button><br>
-        <button id="down">&#8595;</button><br>
-        <div id="score" style="text-align: center; margin-top: 20px;">
-            <label> <input type="range" id="speed" min="250" max="1500" step="250">Vitesse du serpent</label>
-            <h2>Score: <span id="scoreValue">0</span></h2>
+            <div id="directional-buttons">
+                <button id="up">&#8593;</button><br>
+                <button id="left">&#8592;</button>
+                <button id="right">&#8594;</button><br>
+                <button id="down">&#8595;</button>
+            </div>
+            <div id="score">
+                <label for="speed">Vitesse du serpent :</label>
+                <input type="range" id="speed" min="250" max="1500" step="250">
+                <h2>Score: <span id="scoreValue">0</span></h2>
+            </div>
         </div>
     </div>
     <script src="script.js"></script>

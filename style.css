@@ -7,11 +7,11 @@ body {
     text-align: center;
 }
 
-div[style*="display: flex"] {
+.container {
+    display: flex;
     justify-content: center;
     align-items: flex-start;
-    margin-bottom: 30px;
-    flex-wrap: wrap;
+    gap: 20px;
 }
 
 canvas {
@@ -23,9 +23,41 @@ canvas {
     height: auto;
 }
 
-div[style*="flex-direction: column"] {
-    margin-left: 30px;
-    margin-top: 20px;
+.controls {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+#game-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+#directional-buttons {
+    display: grid;
+    grid-template-rows: repeat(3, auto);
+    grid-template-columns: 60px 60px 60px;
+    justify-content: center; 
+    gap: 10px; 
+}
+
+#up {
+    grid-column: 2;
+}
+
+#left {
+    grid-column: 1;
+}
+
+#right {
+    grid-column: 3;
+}
+
+#down {
+    grid-column: 2;
 }
 
 button {
@@ -33,13 +65,11 @@ button {
     color: #fff;
     border: none;
     border-radius: 8px;
-    padding: 14px 0;
-    margin: 8px 0;
-    font-size: 1.1rem;
+    padding: 10px 20px;
+    font-size: 1rem;
     font-weight: 500;
     cursor: pointer;
     transition: background 0.2s, transform 0.1s;
-    width: 110px;
     box-shadow: 0 2px 6px #0003;
 }
 
@@ -52,8 +82,7 @@ button:hover, button:focus {
 #up, #down, #left, #right {
     width: 60px;
     height: 60px;
-    font-size: 2rem;
-    margin: 6px 8px;
+    font-size: 1.5rem;
     background: #3a4052;
     border-radius: 50%;
     box-shadow: 0 2px 8px #0002;
@@ -64,13 +93,17 @@ button:hover, button:focus {
 #up { margin-bottom: 0; }
 #down { margin-top: 0; }
 
-br {
-    line-height: 0.5;
+#score {
+    text-align: left;
 }
 
-/* Responsive design */
+input[type="range"] {
+    width: 100%;
+    max-width: 200px;
+}
+
 @media (max-width: 768px) {
-    div[style*="display: flex"] {
+    .container {
         flex-direction: column;
         align-items: center;
     }
@@ -80,13 +113,13 @@ br {
         height: auto;
     }
 
+    .controls {
+        align-items: center;
+    }
+
     button {
         width: 80%;
         font-size: 1rem;
-    }
-
-    div[style*="flex-direction: column"] {
-        margin-left: 0;
     }
 }
 
@@ -99,7 +132,7 @@ br {
     #up, #down, #left, #right {
         width: 50px;
         height: 50px;
-        font-size: 1.5rem;
+        font-size: 1.2rem;
     }
 
     input[type="range"] {
