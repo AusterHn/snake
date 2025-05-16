@@ -5,6 +5,7 @@ const elemCanvas = <HTMLCanvasElement> document.getElementById("dessin")
 const ctx = <CanvasRenderingContext2D> elemCanvas.getContext("2d")
 const boutonStart = <HTMLButtonElement> document.getElementById("start")
 const boutonStop = <HTMLButtonElement> document.getElementById("stop")
+const boutonContinue = <HTMLButtonElement> document.getElementById("continue")
 const boutonReset = <HTMLButtonElement> document.getElementById("reset")
 const boutonHaut = <HTMLButtonElement> document.getElementById("up")
 const boutonBas = <HTMLButtonElement> document.getElementById("down")
@@ -22,6 +23,11 @@ function stopGame() {
     enPause = true
 }
 boutonStop.addEventListener("click", stopGame)
+
+function continueGame() {
+    enPause = false
+}
+boutonContinue.addEventListener("click", continueGame)
 
 let currentDirection : string = "ArrowRight"
 let food : {x: number, y: number} = {x: 0, y: 0}

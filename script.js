@@ -16,6 +16,7 @@ var elemCanvas = document.getElementById("dessin");
 var ctx = elemCanvas.getContext("2d");
 var boutonStart = document.getElementById("start");
 var boutonStop = document.getElementById("stop");
+var boutonContinue = document.getElementById("continue");
 var boutonReset = document.getElementById("reset");
 var boutonHaut = document.getElementById("up");
 var boutonBas = document.getElementById("down");
@@ -31,6 +32,10 @@ function stopGame() {
     enPause = true;
 }
 boutonStop.addEventListener("click", stopGame);
+function continueGame() {
+    enPause = false;
+}
+boutonContinue.addEventListener("click", continueGame);
 var currentDirection = "ArrowRight";
 var food = { x: 0, y: 0 };
 function generateFood() {
