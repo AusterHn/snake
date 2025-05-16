@@ -28,13 +28,13 @@ let currentDirection : string = "ArrowRight"
 let food : {x: number, y: number} = {x: 0, y: 0}
 
 function generateFood() {
-    food.x = Math.floor(Math.random()*301) + 50
-    food.y = Math.floor(Math.random()*301) + 50
+    food.x = Math.floor(Math.random()*381) + 10
+    food.y = Math.floor(Math.random()*381) + 10
 }
 
 function drawFood() {
     ctx.beginPath()
-    ctx.arc(food.x, food.y, 10, 0, 2*Math.PI)
+    ctx.arc(food.x, food.y, 5, 0, 2*Math.PI)
     ctx.fillStyle = "white"
     ctx.fill()
     ctx.closePath()
