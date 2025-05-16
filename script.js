@@ -32,10 +32,6 @@ function stopGame() {
     enPause = true;
 }
 boutonStop.addEventListener("click", stopGame);
-function continueGame() {
-    enPause = false;
-}
-boutonContinue.addEventListener("click", continueGame);
 var currentDirection = "ArrowRight";
 var food = { x: 0, y: 0 };
 function generateFood() {
@@ -104,54 +100,62 @@ function resetGame() {
     drawFood();
 }
 boutonReset.addEventListener("click", resetGame);
+function gameLoop() {
+    if (enPause)
+        return;
+    ctx.clearRect(0, 0, elemCanvas.width, elemCanvas.height);
+    drawFood();
+    var head = __assign({}, snake[0]);
+    switch (currentDirection) {
+        case "ArrowUp":
+            head.y -= segmentSize;
+            break;
+        case "ArrowDown":
+            head.y += segmentSize;
+            break;
+        case "ArrowLeft":
+            head.x -= segmentSize;
+            break;
+        case "ArrowRight":
+            head.x += segmentSize;
+            break;
+    }
+    if (head.x < 0 ||
+        head.x >= elemCanvas.width ||
+        head.y < 0 ||
+        head.y >= elemCanvas.height) {
+        enPause = true;
+        alert("Game Over! Le serpent a touché les bordures. Score: " + champScore.innerText); // Affiche un message
+        return;
+    }
+    for (var i = 1; i < snake.length; ++i) {
+        if (head.x === snake[i].x && head.y === snake[i].y) {
+            enPause = true;
+            alert("Game Over! Le serpent s'est mordu. Score: " + champScore.innerText);
+            return;
+        }
+    }
+    snake.unshift(head);
+    if (Math.abs(head.x - food.x) < segmentSize && Math.abs(head.y - food.y) < segmentSize) {
+        champScore.innerText = String(parseInt(champScore.innerText) + 1);
+        generateFood();
+    }
+    else {
+        snake.pop();
+    }
+    drawSnake();
+    setTimeout(gameLoop, parseInt(champVitesse.value));
+}
 function play() {
     resetGame();
     enPause = false;
-    function gameLoop() {
-        if (enPause)
-            return;
-        ctx.clearRect(0, 0, elemCanvas.width, elemCanvas.height);
-        drawFood();
-        var head = __assign({}, snake[0]);
-        switch (currentDirection) {
-            case "ArrowUp":
-                head.y -= segmentSize;
-                break;
-            case "ArrowDown":
-                head.y += segmentSize;
-                break;
-            case "ArrowLeft":
-                head.x -= segmentSize;
-                break;
-            case "ArrowRight":
-                head.x += segmentSize;
-        }
-        if (head.x < 0 ||
-            head.x >= elemCanvas.width ||
-            head.y < 0 ||
-            head.y >= elemCanvas.height) {
-            enPause = true;
-            alert("Game Over! Le serpent a touché les bordures. Score: " + champScore.innerText); // Affiche un message
-            return;
-        }
-        for (var i = 1; i < snake.length; ++i) {
-            if (head.x === snake[i].x && head.y === snake[i].y) {
-                enPause = true;
-                alert("Game Over! Le serpent s'est mordu. Score: " + champScore.innerText);
-                return;
-            }
-        }
-        snake.unshift(head);
-        if (Math.abs(head.x - food.x) < segmentSize && Math.abs(head.y - food.y) < segmentSize) {
-            champScore.innerText = String(parseInt(champScore.innerText) + 1);
-            generateFood();
-        }
-        else {
-            snake.pop();
-        }
-        drawSnake();
-        setTimeout(gameLoop, parseInt(champVitesse.value));
-    }
     gameLoop();
 }
 boutonStart.addEventListener("click", play);
+function continueGame() {
+    if (enPause) {
+        enPause = false;
+        gameLoop();
+    }
+}
+boutonContinue.addEventListener("click", continueGame);
