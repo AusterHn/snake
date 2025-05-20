@@ -18,7 +18,25 @@ if (!ctx || !elemCanvas || !champScore || !boutonStart || !boutonStop || !bouton
     throw new Error("Certains éléments graphiques n'ont pas pu être trouvés sur la page !")
 }
 
+
+//paint the canvas like grass
+function paintGrass() {
+    for (let y_pos = 0; y_pos < 400; y_pos+=20) {
+        for (let x_pos = 0; x_pos < 400; x_pos+=20) {
+            if((x_pos/20 + y_pos/20)%2 == 0) {
+                ctx.fillStyle = "#228B22"
+            }
+            else {
+                ctx.fillStyle = "#32CD32"
+            }
+            ctx.fillRect(x_pos, y_pos, 20, 20)
+        }
+    }
+}
+paintGrass()
+
 let enPause = false
+
 function stopGame() {
     enPause = true
 }
@@ -34,8 +52,8 @@ function generateFood() {
 
 function drawFood() {
     ctx.beginPath()
-    ctx.arc(food.x, food.y, 5, 0, 2*Math.PI)
-    ctx.fillStyle = "white"
+    ctx.arc(food.x, food.y, 10, 0, 2*Math.PI)
+    ctx.fillStyle = "red"
     ctx.fill()
     ctx.closePath()
 }
@@ -49,9 +67,9 @@ let snake : {x: number, y: number}[] = [
 
 function drawSnake(){
     snake.forEach(segment => {
-        ctx.fillStyle = "green";
+        ctx.fillStyle = "#8B4513";
         ctx.fillRect(segment.x, segment.y, segmentSize, segmentSize);
-        ctx.strokeStyle = "darkgreen";
+        ctx.strokeStyle = "#5A3220";
         ctx.strokeRect(segment.x, segment.y, segmentSize, segmentSize);
     });
 }
@@ -90,8 +108,10 @@ function resetGame() {
     ]
     currentDirection = "ArrowRight"
     champScore.innerText = "0"
+    paintGrass()
     generateFood()
     ctx.clearRect(0, 0, elemCanvas.width, elemCanvas.height)
+    paintGrass()
     drawSnake()
     drawFood()
 }
@@ -100,6 +120,7 @@ boutonReset.addEventListener("click", resetGame)
 function gameLoop() {
     if (enPause) return
     ctx.clearRect(0, 0, elemCanvas.width, elemCanvas.height)
+    paintGrass()
     drawFood()
     const head = { ...snake[0] }
     switch (currentDirection) {
@@ -146,6 +167,7 @@ function gameLoop() {
 }
 
 function play() {
+    paintGrass()
     resetGame()
     enPause = false
     gameLoop()
